@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+  #    username: sa
+  #    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+logging:
+  level:
+    org:
+      springframework: ERROR
+
+management:
+  endpoint:
+    beans:
+      enabled: true
+    metrics:
+      enabled: true
+    health:
+      showDetails: "always"
+  server:
+    port: 9001
+    servlet:
+      contextPath: "/api/v1/categories/"
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+server:
+  port: 8085
