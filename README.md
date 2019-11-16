@@ -33,3 +33,13 @@ Unit tests are written with JUnit 5 and continuous integration testing is done t
     * ```curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"name": "test"}' 'http://localhost:8080/api/v1/categories/'```
     * ```curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"name": "test"}' ''http://localhost:8080/api/v1/vendors/'```
 
+## API Documentation
+
+API documentation is provided by means of Swagger2, which can be opened in the browser with the following urls:
+
+* http://localhost:8080/v2/api-docs
+* http://localhost:8080/swagger-ui.html#/
+
+<p align="center">
+  <img src="images/screenShot-01.png"/>
+</p>
