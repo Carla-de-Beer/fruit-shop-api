@@ -23,10 +23,12 @@ Unit tests are written with JUnit 5 and continuous integration testing is done t
 * Start the project server by running the command `mvn spring-boot:run`.
 * The API can be called with any of the following cURL CRUD-based requests:
 
-  * GET/READ:
+  * GET/READ (in either JSON or XML formats):
 
     * ```curl -X GET --header 'Accept: application/json' 'http://localhost:8080/api/v1/categories/'```
+    * ```curl -X GET --header 'Accept: application/xml' 'http://localhost:8080/api/v1/categories/'```
     * ```curl -X GET --header 'Accept: application/json' 'http://localhost:8080/api/v1/vendors/'```
+    * ```curl -X GET --header 'Accept: application/xml' 'http://localhost:8080/api/v1/vendors/'```
 
   * CREATE/ADD:
 
