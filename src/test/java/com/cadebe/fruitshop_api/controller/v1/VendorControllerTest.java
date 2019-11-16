@@ -24,7 +24,7 @@ import java.util.UUID;
 import static com.cadebe.fruitshop_api.controller.v1.AbstractRestControllerTest.asJsonString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -63,6 +63,9 @@ class VendorControllerTest {
         mockMvc.perform(get(VendorController.BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
+        verify(vendorService, times(1)).getAllVendors();
+        verifyNoMoreInteractions(vendorService);
     }
 
     @Test
@@ -78,6 +81,9 @@ class VendorControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uuid", equalTo(ID.toString())));
+
+        verify(vendorService, times(1)).getVendorById(any(UUID.class));
+        verifyNoMoreInteractions(vendorService);
     }
 
     @Test
@@ -88,6 +94,9 @@ class VendorControllerTest {
         mockMvc.perform(get(VendorController.BASE_URL + "/a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+
+        verify(vendorService, times(1)).getVendorById(any(UUID.class));
+        verifyNoMoreInteractions(vendorService);
     }
 
     @Test
@@ -113,6 +122,9 @@ class VendorControllerTest {
                 .content(asJsonString(vendor)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.vendor_url", equalTo(VendorController.BASE_URL + "/" + ID)));
+
+        verify(vendorService, times(1)).createNewVendor(any(VendorDTO.class));
+        verifyNoMoreInteractions(vendorService);
     }
 
     @Test
@@ -135,6 +147,9 @@ class VendorControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendor)))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.name", equalTo(NAME)));
+
+        verify(vendorService, times(1)).updateExistingVendor(any(UUID.class), any(VendorDTO.class));
+        verifyNoMoreInteractions(vendorService);
     }
 
     @Test
@@ -145,15 +160,21 @@ class VendorControllerTest {
                 .andExpect(status().isNoContent());
 
         Mockito.verify(vendorService).deleteVendorById(any(UUID.class));
+
+        verify(vendorService).deleteVendorById(any(UUID.class));
+        verifyNoMoreInteractions(vendorService);
     }
 
     @Test
     @DisplayName("Test delete all vendors")
     void deleteVendorById() throws Exception {
-        when(vendorService.getVendorById(any(UUID.class))).thenThrow(ResourceNotFoundException.class);
-
-        mockMvc.perform(get(VendorController.BASE_URL + "/a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a")
+        mockMvc.perform(delete(VendorController.BASE_URL + "/")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNoContent());
+
+        verify(vendorService).deleteAllVendors();
+
+        verify(vendorService).deleteAllVendors();
+        verifyNoMoreInteractions(vendorService);
     }
 }

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,7 +22,7 @@ import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -62,6 +61,9 @@ class CategoryControllerTest extends AbstractRestControllerTest {
         mockMvc.perform(get(CategoryController.BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
+        verify(categoryService, times(1)).getAllCategories();
+        verifyNoMoreInteractions(categoryService);
     }
 
     @Test
@@ -77,6 +79,9 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uuid", equalTo(ID.toString())));
+
+        verify(categoryService, times(1)).getCategoryById(any(UUID.class));
+        verifyNoMoreInteractions(categoryService);
     }
 
     @Test
@@ -88,6 +93,9 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+
+        verify(categoryService, times(1)).getCategoryById(any(UUID.class));
+        verifyNoMoreInteractions(categoryService);
     }
 
     @Test
@@ -113,6 +121,9 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .content(asJsonString(category)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.category_url", equalTo(CategoryController.BASE_URL + "/" + ID)));
+
+        verify(categoryService, times(1)).createNewCategory(any(CategoryDTO.class));
+        verifyNoMoreInteractions(categoryService);
     }
 
     @Test
@@ -136,6 +147,9 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .content(asJsonString(category)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo(NAME)));
+
+        verify(categoryService, times(1)).updateExistingCategory(any(UUID.class), any(CategoryDTO.class));
+        verifyNoMoreInteractions(categoryService);
     }
 
     @Test
@@ -145,16 +159,18 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
-        Mockito.verify(categoryService).deleteCategoryById(any(UUID.class));
+        verify(categoryService).deleteCategoryById(any(UUID.class));
+        verifyNoMoreInteractions(categoryService);
     }
 
     @Test
-    @DisplayName("Test delete all categories")
-    void deleteCategoryByIdNotFound() throws Exception {
-        when(categoryService.getCategoryById(any(UUID.class))).thenThrow(ResourceNotFoundException.class);
-
-        mockMvc.perform(get(CategoryController.BASE_URL + "/a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a")
+    @DisplayName("Test delete category by id")
+    void deleteAll() throws Exception {
+        mockMvc.perform(delete(CategoryController.BASE_URL + "/")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNoContent());
+
+        verify(categoryService).deleteAllCategories();
+        verifyNoMoreInteractions(categoryService);
     }
 }
