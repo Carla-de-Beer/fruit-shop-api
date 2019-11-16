@@ -1,12 +1,3 @@
-spring:
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-  #    username: sa
-  #    password: password
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-
 logging:
   level:
     org:
@@ -21,7 +12,7 @@ management:
     health:
       showDetails: "always"
   server:
-    port: 9001
+    port: 9005
     servlet:
       contextPath: "/api/v1/categories/"
   endpoints:
@@ -29,4 +20,4 @@ management:
       exposure:
         include: "*"
 server:
-  port: 8085
+  port: 8080

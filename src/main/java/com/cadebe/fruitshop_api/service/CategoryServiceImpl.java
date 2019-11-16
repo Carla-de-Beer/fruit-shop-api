@@ -8,6 +8,7 @@ import com.cadebe.fruitshop_api.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDTO> getAllCategories() {
         return categoryRepository.findAll()
                 .stream()
-                .map(categoryMapper::categoryToCategoryDTO)
+                .map(categoryMapper::categoryToCategoryDTO).filter(Objects::nonNull)
+                .peek(categoryDTO -> categoryDTO.setCategoryUrl(getCategoryUrl(categoryDTO.getUuid())))
                 .collect(Collectors.toList());
     }
 
@@ -48,7 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO updateExistingCategory(UUID uuid, CategoryDTO categoryDTO) {
-        categoryDTO.setUuid(uuid);
         return persistAndReturnDTO(categoryDTO);
     }
 
@@ -61,7 +62,6 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteAllCategories() {
         categoryRepository.deleteAll();
     }
-
 
     private CategoryDTO persistAndReturnDTO(CategoryDTO categoryDTO) {
         return categoryMapper.categoryToCategoryDTO(categoryRepository.save(categoryMapper.categoryDTOToCategory(categoryDTO)));

@@ -22,29 +22,37 @@ class CategoryMapperTest {
     private CategoryMapper categoryMapper = new CategoryMapper();
 
     @Test
-    @DisplayName("Test category to categoryDTO id")
+    @DisplayName("Test Category to CategoryDTO")
     void categoryToCategoryDTO() {
         Category category = Category.builder()
                 .uuid(ID)
                 .name(NAME)
-                .categoryUrl(URL)
                 .build();
 
         CategoryDTO categoryDTO = categoryMapper.categoryToCategoryDTO(category);
 
-        assertThat(categoryDTO).isEqualToComparingFieldByField(category);
+        assert categoryDTO != null;
+        assertThat(categoryDTO.getName())
+                .withFailMessage("Could not map from Category name to CategoryDTO name")
+                .isEqualTo(category.getName());
+
+        assertThat(categoryDTO.getUuid())
+                .withFailMessage("Could not map from Category uuid to CategoryDTO uuid")
+                .isEqualTo(category.getUuid());
     }
 
     @Test
-    @DisplayName("Test category to categoryDTO id (null input)")
+    @DisplayName("Test Category to CategoryDTO (null input)")
     void categoryToCategoryDTOWithNullInput() {
         CategoryDTO mappedCategoryDTO = categoryMapper.categoryToCategoryDTO(null);
 
-        assertThat(mappedCategoryDTO).isNull();
+        assertThat(mappedCategoryDTO)
+                .withFailMessage("Could not map from Category to CategoryDTO")
+                .isNull();
     }
 
     @Test
-    @DisplayName("Test categoryDTO to category id")
+    @DisplayName("Test CategoryDTO to Category")
     void categoryDTOToCategory() {
         CategoryDTO categoryDTO = CategoryDTO.builder()
                 .uuid(ID)
@@ -54,14 +62,18 @@ class CategoryMapperTest {
 
         Category category = categoryMapper.categoryDTOToCategory(categoryDTO);
 
-        assertThat(category).isEqualToComparingFieldByField(categoryDTO);
+        assertThat(category)
+                .withFailMessage("Could not map from CategoryDTO to Category")
+                .isEqualToComparingFieldByField(categoryDTO);
     }
 
     @Test
-    @DisplayName("Test categoryDTO to category id (null input)")
+    @DisplayName("Test CategoryDTO to Category (null input)")
     void categoryDTOToCategoryWithNullInput() {
         Category mappedCategory = categoryMapper.categoryDTOToCategory(null);
 
-        assertThat(mappedCategory).isNull();
+        assertThat(mappedCategory)
+                .withFailMessage("Could not map from CategoryDTO to Category")
+                .isNull();
     }
 }

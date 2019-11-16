@@ -62,6 +62,7 @@ class VendorServiceImplTest {
         assertThat(foundVendors.size())
                 .withFailMessage("Could not find vendor list with correct size")
                 .isEqualTo(2);
+
         then(vendorRepository).should(times(1)).findAll();
     }
 
@@ -87,7 +88,6 @@ class VendorServiceImplTest {
         Vendor savedVendor = Vendor.builder()
                 .uuid(vendorDTO.getUuid())
                 .name(vendorDTO.getName())
-                .vendorURL(vendorDTO.getVendorURL())
                 .build();
 
         when(vendorRepository.save(any(Vendor.class))).thenReturn(savedVendor);
@@ -110,7 +110,6 @@ class VendorServiceImplTest {
         Vendor vendor = Vendor.builder()
                 .uuid(vendorDTO.getUuid())
                 .name(vendorDTO.getName())
-                .vendorURL(vendorDTO.getVendorURL())
                 .build();
 
         when(vendorRepository.save(any())).thenReturn(vendor);

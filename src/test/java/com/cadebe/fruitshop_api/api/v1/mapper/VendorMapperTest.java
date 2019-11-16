@@ -27,12 +27,13 @@ class VendorMapperTest {
         Vendor vendor = Vendor.builder()
                 .uuid(ID)
                 .name(NAME)
-                .vendorURL(URL)
                 .build();
 
         VendorDTO vendorDTO = vendorMapper.vendorToVendorDTO(vendor);
 
-        assertThat(vendorDTO).isEqualToComparingFieldByField(vendor);
+        assert vendorDTO != null;
+        assertThat(vendorDTO.getUuid()).isEqualTo(vendor.getUuid());
+        assertThat(vendorDTO.getName()).isEqualTo(vendor.getName());
     }
 
     @Test

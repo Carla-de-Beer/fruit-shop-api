@@ -1,6 +1,7 @@
 package com.cadebe.fruitshop_api.api.v1.mapper;
 
 import com.cadebe.fruitshop_api.api.v1.dto.CategoryDTO;
+import com.cadebe.fruitshop_api.controller.v1.CategoryController;
 import com.cadebe.fruitshop_api.domain.Category;
 import lombok.Synchronized;
 import org.springframework.lang.Nullable;
@@ -19,7 +20,7 @@ public class CategoryMapper {
         return CategoryDTO.builder()
                 .uuid(source.getUuid())
                 .name(source.getName())
-                .categoryUrl(source.getCategoryUrl())
+                .categoryUrl(CategoryController.BASE_URL + '/' + source.getUuid())
                 .build();
     }
 
@@ -33,7 +34,6 @@ public class CategoryMapper {
         return Category.builder()
                 .uuid(source.getUuid())
                 .name(source.getName())
-                .categoryUrl(source.getCategoryUrl())
                 .build();
     }
 }

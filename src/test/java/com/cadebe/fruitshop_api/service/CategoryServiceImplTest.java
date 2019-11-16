@@ -48,8 +48,8 @@ class CategoryServiceImplTest {
     void setUp() {
         categoryService = new CategoryServiceImpl(categoryRepository, categoryMapper);
 
-        cat1 = Category.builder().uuid(ID).name(NAME).categoryUrl(URL).build();
-        cat2 = Category.builder().uuid(ID).name("cat2").categoryUrl("/api/v1/categories/2").build();
+        cat1 = Category.builder().uuid(ID).name(NAME).build();
+        cat2 = Category.builder().uuid(ID).name("cat2").build();
     }
 
     @Test
@@ -91,14 +91,15 @@ class CategoryServiceImplTest {
         Category savedCustomer = Category.builder()
                 .uuid(customerDTO.getUuid())
                 .name(customerDTO.getName())
-                .categoryUrl(customerDTO.getCategoryUrl())
                 .build();
 
         when(categoryRepository.save(any(Category.class))).thenReturn(savedCustomer);
 
         CategoryDTO savedDto = categoryService.createNewCategory(customerDTO);
 
+        assertEquals(customerDTO.getUuid(), savedDto.getUuid());
         assertEquals(customerDTO.getName(), savedDto.getName());
+
         assertEquals(URL, savedDto.getCategoryUrl());
     }
 
@@ -114,7 +115,6 @@ class CategoryServiceImplTest {
         Category savedCustomer = Category.builder()
                 .uuid(customerDTO.getUuid())
                 .name(customerDTO.getName())
-                .categoryUrl(customerDTO.getCategoryUrl())
                 .build();
 
         when(categoryRepository.save(any())).thenReturn(savedCustomer);

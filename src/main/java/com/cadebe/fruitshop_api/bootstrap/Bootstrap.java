@@ -19,14 +19,14 @@ public class Bootstrap implements CommandLineRunner {
     private final VendorService vendorService;
     private final CategoryMapper categoryMapper;
 
-    public Bootstrap(CategoryService categoryRepository, VendorService vendorService, CategoryMapper categoryMapper) {
-        this.categoryService = categoryRepository;
+    public Bootstrap(CategoryService categoryService, VendorService vendorService, CategoryMapper categoryMapper) {
+        this.categoryService = categoryService;
         this.vendorService = vendorService;
         this.categoryMapper = categoryMapper;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         loadCategories();
         loadVendors();
     }

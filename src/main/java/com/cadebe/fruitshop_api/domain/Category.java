@@ -14,6 +14,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "categories")
 public class Category {
 
     @Id
@@ -23,7 +24,4 @@ public class Category {
     private UUID uuid;
 
     private String name;
-
-    @Column(name = "category_url")
-    private String categoryUrl;
 }

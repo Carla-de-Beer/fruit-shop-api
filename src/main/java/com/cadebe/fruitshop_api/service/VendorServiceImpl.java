@@ -8,6 +8,7 @@ import com.cadebe.fruitshop_api.repository.VendorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,8 @@ public class VendorServiceImpl implements VendorService {
     public List<VendorDTO> getAllVendors() {
         return vendorRepository.findAll()
                 .stream()
-                .map(vendorMapper::vendorToVendorDTO)
+                .map(vendorMapper::vendorToVendorDTO).filter(Objects::nonNull)
+                .peek(categoryDTO -> categoryDTO.setVendorURL(getVendorUrl(categoryDTO.getUuid())))
                 .collect(Collectors.toList());
     }
 
