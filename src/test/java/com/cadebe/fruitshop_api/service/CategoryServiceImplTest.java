@@ -22,8 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @Tag("service")
@@ -65,6 +64,9 @@ class CategoryServiceImplTest {
                 .isEqualTo(2);
 
         then(categoryRepository).should(times(1)).findAll();
+
+        verify(categoryRepository, times(1)).findAll();
+        verifyNoMoreInteractions(categoryRepository);
     }
 
     @Test
@@ -77,6 +79,9 @@ class CategoryServiceImplTest {
         CategoryDTO customerDTO = categoryService.getCategoryById(ID);
 
         assertEquals(NAME, customerDTO.getName());
+
+        verify(categoryRepository, times(1)).findById(any(UUID.class));
+        verifyNoMoreInteractions(categoryRepository);
     }
 
     @Test
@@ -101,6 +106,9 @@ class CategoryServiceImplTest {
         assertEquals(customerDTO.getName(), savedDto.getName());
 
         assertEquals(URL, savedDto.getCategoryUrl());
+
+        verify(categoryRepository, times(1)).save(any(Category.class));
+        verifyNoMoreInteractions(categoryRepository);
     }
 
     @Test
@@ -128,6 +136,9 @@ class CategoryServiceImplTest {
         assertThat(savedCategory.getName())
                 .withFailMessage("Could not find category with correct name")
                 .isEqualTo(NAME);
+
+        verify(categoryRepository, times(1)).save(any(Category.class));
+        verifyNoMoreInteractions(categoryRepository);
     }
 
     @Test
@@ -136,6 +147,9 @@ class CategoryServiceImplTest {
         categoryService.deleteCategoryById(ID);
 
         then(categoryRepository).should().deleteById(any(UUID.class));
+
+        verify(categoryRepository, times(1)).deleteById(any(UUID.class));
+        verifyNoMoreInteractions(categoryRepository);
     }
 
     @Test
@@ -144,5 +158,8 @@ class CategoryServiceImplTest {
         categoryService.deleteAllCategories();
 
         then(categoryRepository).should().deleteAll();
+
+        verify(categoryRepository, times(1)).deleteAll();
+        verifyNoMoreInteractions(categoryRepository);
     }
 }

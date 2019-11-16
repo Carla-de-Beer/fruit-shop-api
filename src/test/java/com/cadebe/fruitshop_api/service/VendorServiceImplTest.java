@@ -20,8 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Test VendorService")
@@ -64,6 +63,9 @@ class VendorServiceImplTest {
                 .isEqualTo(2);
 
         then(vendorRepository).should(times(1)).findAll();
+
+        verify(vendorRepository, times(1)).findAll();
+        verifyNoMoreInteractions(vendorRepository);
     }
 
     @Test
@@ -74,6 +76,9 @@ class VendorServiceImplTest {
         VendorDTO foundVendor = vendorService.getVendorById(ID);
 
         assertEquals(NAME, foundVendor.getName());
+
+        verify(vendorRepository, times(1)).findById(any(UUID.class));
+        verifyNoMoreInteractions(vendorRepository);
     }
 
     @Test
@@ -96,6 +101,9 @@ class VendorServiceImplTest {
 
         assertEquals(vendorDTO.getName(), savedDto.getName());
         assertEquals(URL, savedDto.getVendorURL());
+
+        verify(vendorRepository, times(1)).save(any(Vendor.class));
+        verifyNoMoreInteractions(vendorRepository);
     }
 
     @Test
@@ -123,6 +131,9 @@ class VendorServiceImplTest {
         assertThat(savedVendor.getName())
                 .withFailMessage("Could not find vendor with correct name")
                 .isEqualTo(NAME);
+
+        verify(vendorRepository, times(1)).save(any(Vendor.class));
+        verifyNoMoreInteractions(vendorRepository);
     }
 
     @Test
@@ -131,6 +142,9 @@ class VendorServiceImplTest {
         vendorService.deleteVendorById(ID);
 
         then(vendorRepository).should().deleteById(ID);
+
+        verify(vendorRepository, times(1)).deleteById(any(UUID.class));
+        verifyNoMoreInteractions(vendorRepository);
     }
 
     @Test
@@ -139,5 +153,8 @@ class VendorServiceImplTest {
         vendorService.deleteAllVendors();
 
         then(vendorRepository).should().deleteAll();
+
+        verify(vendorRepository, times(1)).deleteAll();
+        verifyNoMoreInteractions(vendorRepository);
     }
 }

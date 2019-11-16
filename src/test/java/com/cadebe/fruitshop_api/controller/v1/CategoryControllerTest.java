@@ -73,9 +73,21 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .build());
 
         mockMvc.perform(get(CategoryController.BASE_URL + "/" + ID)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-               // .andExpect(jsonPath("$.uuid", equalTo(ID.toString())));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.uuid", equalTo(ID.toString())));
+    }
+
+    @Test
+    @DisplayName("Test get category by id (not found)")
+    void getCategoryByIdNotFound() throws Exception {
+        when(categoryService.getCategoryById(any(UUID.class))).thenThrow(ResourceNotFoundException.class);
+
+        mockMvc.perform(get(CategoryController.BASE_URL + "/a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -96,10 +108,11 @@ class CategoryControllerTest extends AbstractRestControllerTest {
         when(categoryService.createNewCategory(category)).thenReturn(returnDTO);
 
         mockMvc.perform(post(CategoryController.BASE_URL)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(category)))
-                .andExpect(status().isCreated());
-               // .andExpect(jsonPath("$.category_url", equalTo(CategoryController.BASE_URL + "/" + ID)));
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.category_url", equalTo(CategoryController.BASE_URL + "/" + ID)));
     }
 
     @Test
@@ -118,10 +131,11 @@ class CategoryControllerTest extends AbstractRestControllerTest {
         when(categoryService.updateExistingCategory(any(UUID.class), any(CategoryDTO.class))).thenReturn(returnDTO);
 
         mockMvc.perform(put(CategoryController.BASE_URL + "/" + ID)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(category)))
-                .andExpect(status().isOk());
-               // .andExpect(jsonPath("$.name", equalTo(NAME)));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", equalTo(NAME)));
     }
 
     @Test

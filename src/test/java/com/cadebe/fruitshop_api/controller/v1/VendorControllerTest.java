@@ -74,9 +74,20 @@ class VendorControllerTest {
                 .build());
 
         mockMvc.perform(get(VendorController.BASE_URL + "/" + ID)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-        // .andExpect(jsonPath("$.uuid", equalTo(ID.toString())));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.uuid", equalTo(ID.toString())));
+    }
+
+    @Test
+    @DisplayName("Test get vendor by id (not found)")
+    void getVendorByIdNotFound() throws Exception {
+        when(vendorService.getVendorById(any(UUID.class))).thenThrow(ResourceNotFoundException.class);
+
+        mockMvc.perform(get(VendorController.BASE_URL + "/a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -97,10 +108,11 @@ class VendorControllerTest {
         when(vendorService.createNewVendor(vendor)).thenReturn(returnDTO);
 
         mockMvc.perform(post(VendorController.BASE_URL)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendor)))
-                .andExpect(status().isCreated());
-        //.andExpect(jsonPath("$.vendor_url", equalTo(VendorController.BASE_URL + "/" + ID)));
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.vendor_url", equalTo(VendorController.BASE_URL + "/" + ID)));
     }
 
     @Test
@@ -119,10 +131,10 @@ class VendorControllerTest {
         when(vendorService.updateExistingVendor(any(UUID.class), any(VendorDTO.class))).thenReturn(returnDTO);
 
         mockMvc.perform(put(VendorController.BASE_URL + "/" + ID)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendor)))
-                .andExpect(status().isOk());
-        //.andExpect(jsonPath("$.name", equalTo(NAME)));
+                .andExpect(status().isOk()).andExpect(jsonPath("$.name", equalTo(NAME)));
     }
 
     @Test
