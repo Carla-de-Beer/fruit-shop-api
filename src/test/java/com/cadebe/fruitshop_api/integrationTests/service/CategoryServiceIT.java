@@ -1,4 +1,4 @@
-package com.cadebe.fruitshop_api.integrationTests.v1.controller;
+package com.cadebe.fruitshop_api.integrationTests.service;
 
 import com.cadebe.fruitshop_api.api.v1.dto.CategoryDTO;
 import com.cadebe.fruitshop_api.api.v1.mapper.CategoryMapper;
@@ -41,7 +41,6 @@ class CategoryServiceIT {
     }
 
     @Test
-    @Transactional
     @DisplayName("Test get all categories")
     void getAllCategories() {
         List<CategoryDTO> categories = categoryService.getAllCategories();
@@ -52,13 +51,22 @@ class CategoryServiceIT {
     }
 
     @Test
-    @Transactional
     @DisplayName("Test get category by id")
     void getCategoryById() {
         UUID id = getFirstCategoryIdValue();
         CategoryDTO foundCategory = categoryService.getCategoryById(id);
 
         assertNotNull(foundCategory);
+    }
+
+    @Test
+    @DisplayName("Test get category by id (not found)")
+    void getCategoryByIdNotFound() {
+        UUID id = UUID.fromString("a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a");
+
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            categoryService.getCategoryById(id);
+        });
     }
 
     @Test

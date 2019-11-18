@@ -1,4 +1,4 @@
-package com.cadebe.fruitshop_api.integrationTests.v1.controller;
+package com.cadebe.fruitshop_api.integrationTests.service;
 
 import com.cadebe.fruitshop_api.api.v1.dto.VendorDTO;
 import com.cadebe.fruitshop_api.api.v1.mapper.CategoryMapper;
