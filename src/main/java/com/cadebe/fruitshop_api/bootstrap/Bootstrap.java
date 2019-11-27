@@ -17,12 +17,10 @@ public class Bootstrap implements CommandLineRunner {
 
     private final CategoryService categoryService;
     private final VendorService vendorService;
-    private final CategoryMapper categoryMapper;
 
     public Bootstrap(CategoryService categoryService, VendorService vendorService, CategoryMapper categoryMapper) {
         this.categoryService = categoryService;
         this.vendorService = vendorService;
-        this.categoryMapper = categoryMapper;
     }
 
     @Override

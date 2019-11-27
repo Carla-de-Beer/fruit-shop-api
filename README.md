@@ -12,8 +12,8 @@ Unit tests are written with JUnit 5 and continuous integration testing is done t
 ## Requirements
 
 * Java 11
-* Spring Boot 2.2.1
-* Maven 3.6.1
+* Spring Boot 2.2.1.RELEASE
+* Maven 3.6.2
 * H2/MySQL 8.0.18
 * JUnit 5
 
@@ -21,9 +21,9 @@ Unit tests are written with JUnit 5 and continuous integration testing is done t
 
 * Fork or clone the project.
 * Start the project server by running the command `mvn spring-boot:run`.
-* The API can be called with any of the following cURL CRUD-based requests:
+* The API can be called with any of the following cURL CRUD-based requests (in either JSON or XML formats):
 
-  * GET/READ (in either JSON or XML formats):
+  * GET/READ:
 
     * ```curl -X GET --header 'Accept: application/json' 'http://localhost:8080/api/v1/categories/'```
     * ```curl -X GET --header 'Accept: application/xml' 'http://localhost:8080/api/v1/categories/'```

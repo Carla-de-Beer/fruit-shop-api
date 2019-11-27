@@ -19,7 +19,7 @@ class VendorMapperTest {
     private final String NAME = "vendor1";
     private final String URL = VendorController.BASE_URL + "/" + ID;
 
-    private VendorMapper vendorMapper = new VendorMapper();
+    private final VendorMapper vendorMapper = new VendorMapper();
 
     @Test
     @DisplayName("Test vendor to vendorDTO id")

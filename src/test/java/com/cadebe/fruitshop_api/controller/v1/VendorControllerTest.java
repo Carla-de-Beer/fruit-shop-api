@@ -23,7 +23,6 @@ import java.util.UUID;
 
 import static com.cadebe.fruitshop_api.controller.v1.AbstractRestControllerTest.asJsonString;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

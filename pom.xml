@@ -9,10 +9,19 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.cadebe</groupId>
-    <artifactId>fruitshop_api</artifactId>
+    <artifactId>fruitshop-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>fruitshop_api</name>
+    <name>fruitshop-api</name>
     <description>Spring Boot Project</description>
+
+    <developers>
+        <developer>
+            <id>cadebe</id>
+            <name>Carla de Beer</name>
+        </developer>
+    </developers>
+
+    <inceptionYear>2019</inceptionYear>
 
     <properties>
         <java.version>11</java.version>

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -62,6 +62,8 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
+        then(categoryService).should().getAllCategories();
+
         verify(categoryService, times(1)).getAllCategories();
         verifyNoMoreInteractions(categoryService);
     }
@@ -80,6 +82,8 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uuid", equalTo(ID.toString())));
 
+        then(categoryService).should().getCategoryById(any(UUID.class));
+
         verify(categoryService, times(1)).getCategoryById(any(UUID.class));
         verifyNoMoreInteractions(categoryService);
     }
@@ -93,6 +97,8 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+
+        then(categoryService).should().getCategoryById(any(UUID.class));
 
         verify(categoryService, times(1)).getCategoryById(any(UUID.class));
         verifyNoMoreInteractions(categoryService);
@@ -122,6 +128,8 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.category_url", equalTo(CategoryController.BASE_URL + "/" + ID)));
 
+        then(categoryService).should().createNewCategory(any(CategoryDTO.class));
+
         verify(categoryService, times(1)).createNewCategory(any(CategoryDTO.class));
         verifyNoMoreInteractions(categoryService);
     }
@@ -148,6 +156,8 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo(NAME)));
 
+        then(categoryService).should().updateExistingCategory(any(UUID.class), any(CategoryDTO.class));
+
         verify(categoryService, times(1)).updateExistingCategory(any(UUID.class), any(CategoryDTO.class));
         verifyNoMoreInteractions(categoryService);
     }
@@ -159,6 +169,8 @@ class CategoryControllerTest extends AbstractRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
+        then(categoryService).should().deleteCategoryById(any(UUID.class));
+
         verify(categoryService).deleteCategoryById(any(UUID.class));
         verifyNoMoreInteractions(categoryService);
     }
@@ -169,6 +181,8 @@ class CategoryControllerTest extends AbstractRestControllerTest {
         mockMvc.perform(delete(CategoryController.BASE_URL + "/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
+
+        then(categoryService).should().deleteAllCategories();
 
         verify(categoryService).deleteAllCategories();
         verifyNoMoreInteractions(categoryService);

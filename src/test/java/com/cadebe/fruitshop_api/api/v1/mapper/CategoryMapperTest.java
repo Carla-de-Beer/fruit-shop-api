@@ -19,7 +19,7 @@ class CategoryMapperTest {
     private final String NAME = "category1";
     private final String URL = CategoryController.BASE_URL + "/" + ID;
 
-    private CategoryMapper categoryMapper = new CategoryMapper();
+    private final CategoryMapper categoryMapper = new CategoryMapper();
 
     @Test
     @DisplayName("Test Category to CategoryDTO")

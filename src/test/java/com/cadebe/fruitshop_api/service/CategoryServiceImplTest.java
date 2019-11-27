@@ -20,7 +20,6 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
@@ -39,7 +38,7 @@ class CategoryServiceImplTest {
     @Mock
     private CategoryRepository categoryRepository;
 
-    private CategoryMapper categoryMapper = new CategoryMapper();
+    private final CategoryMapper categoryMapper = new CategoryMapper();
 
     private CategoryServiceImpl categoryService;
 
