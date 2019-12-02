@@ -1,11 +1,9 @@
-package com.cadebe.fruitshop_api.integrationTests.service;
+package com.cadebe.fruitshop_api.service;
 
 import com.cadebe.fruitshop_api.api.v1.dto.CategoryDTO;
 import com.cadebe.fruitshop_api.api.v1.mapper.CategoryMapper;
 import com.cadebe.fruitshop_api.bootstrap.Bootstrap;
 import com.cadebe.fruitshop_api.exception.ResourceNotFoundException;
-import com.cadebe.fruitshop_api.service.CategoryService;
-import com.cadebe.fruitshop_api.service.VendorService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
