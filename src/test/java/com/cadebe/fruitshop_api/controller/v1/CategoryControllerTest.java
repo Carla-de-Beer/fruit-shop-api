@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Tag("controller")
-@DisplayName("Test CategoryController")
+@DisplayName("CategoryController")
 @ExtendWith(MockitoExtension.class)
 class CategoryControllerTest extends AbstractRestControllerTest {
 

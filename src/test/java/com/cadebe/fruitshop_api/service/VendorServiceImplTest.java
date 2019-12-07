@@ -22,7 +22,7 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("Test VendorService")
+@DisplayName("VendorService")
 class VendorServiceImplTest {
 
     private final UUID ID = UUID.randomUUID();

@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Tag("controller")
-@DisplayName("Test VendorController")
+@DisplayName("VendorController")
 @ExtendWith(MockitoExtension.class)
 class VendorControllerTest {
 

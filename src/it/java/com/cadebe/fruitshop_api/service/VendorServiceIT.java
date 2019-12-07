@@ -1,4 +1,4 @@
-package com.cadebe.fruitshop_api.integrationTests.service;
+package com.cadebe.fruitshop_api.service;
 
 import com.cadebe.fruitshop_api.api.v1.dto.VendorDTO;
 import com.cadebe.fruitshop_api.api.v1.mapper.CategoryMapper;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("integration")
-@DisplayName("Test VendorService (IT)")
+@DisplayName("VendorService (IT)")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class VendorServiceIT {
@@ -34,9 +34,7 @@ class VendorServiceIT {
 
     @BeforeEach
     void setUp() {
-        CategoryMapper categoryMapper = new CategoryMapper();
-
-        Bootstrap bootstrap = new Bootstrap(categoryService, vendorService, categoryMapper);
+        Bootstrap bootstrap = new Bootstrap(categoryService, vendorService);
         bootstrap.run();
     }
 

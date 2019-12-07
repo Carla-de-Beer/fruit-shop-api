@@ -12,7 +12,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("mapper")
-@DisplayName("Test VendorMapper")
+@DisplayName("VendorMapper")
 class VendorMapperTest {
 
     private final UUID ID = UUID.randomUUID();

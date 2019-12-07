@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @Tag("service")
-@DisplayName("Test CategoryServiceImpl")
+@DisplayName("CategoryServiceImpl")
 class CategoryServiceImplTest {
 
     private final UUID ID = UUID.randomUUID();

@@ -18,7 +18,7 @@ public class Bootstrap implements CommandLineRunner {
     private final CategoryService categoryService;
     private final VendorService vendorService;
 
-    public Bootstrap(CategoryService categoryService, VendorService vendorService, CategoryMapper categoryMapper) {
+    public Bootstrap(CategoryService categoryService, VendorService vendorService) {
         this.categoryService = categoryService;
         this.vendorService = vendorService;
     }

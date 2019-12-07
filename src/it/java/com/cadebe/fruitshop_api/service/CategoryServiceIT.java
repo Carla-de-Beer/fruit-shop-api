@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Tag("integration")
-@DisplayName("Test CategoryService (IT)")
+@DisplayName("CategoryService (IT)")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class CategoryServiceIT {
@@ -32,9 +32,7 @@ class CategoryServiceIT {
 
     @BeforeEach
     void setUp() {
-        CategoryMapper categoryMapper = new CategoryMapper();
-
-        Bootstrap bootstrap = new Bootstrap(categoryService, vendorService, categoryMapper);
+        Bootstrap bootstrap = new Bootstrap(categoryService, vendorService);
         bootstrap.run();
     }
 
