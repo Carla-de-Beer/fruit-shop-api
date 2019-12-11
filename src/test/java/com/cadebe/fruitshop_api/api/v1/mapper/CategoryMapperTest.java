@@ -19,8 +19,6 @@ class CategoryMapperTest {
     private final String NAME = "category1";
     private final String URL = CategoryController.BASE_URL + "/" + ID;
 
-    private final CategoryMapper categoryMapper = new CategoryMapper();
-
     @Test
     @DisplayName("Test Category to CategoryDTO")
     void categoryToCategoryDTO() {
@@ -29,7 +27,7 @@ class CategoryMapperTest {
                 .name(NAME)
                 .build();
 
-        CategoryDTO categoryDTO = categoryMapper.categoryToCategoryDTO(category);
+        CategoryDTO categoryDTO = CategoryMapper.INSTANCE.categoryToCategoryDTO(category);
 
         assert categoryDTO != null;
         assertThat(categoryDTO.getName())
@@ -44,7 +42,7 @@ class CategoryMapperTest {
     @Test
     @DisplayName("Test Category to CategoryDTO (null input)")
     void categoryToCategoryDTOWithNullInput() {
-        CategoryDTO mappedCategoryDTO = categoryMapper.categoryToCategoryDTO(null);
+        CategoryDTO mappedCategoryDTO = CategoryMapper.INSTANCE.categoryToCategoryDTO(null);
 
         assertThat(mappedCategoryDTO)
                 .withFailMessage("Could not map from Category to CategoryDTO")
@@ -60,7 +58,7 @@ class CategoryMapperTest {
                 .categoryUrl(URL)
                 .build();
 
-        Category category = categoryMapper.categoryDTOToCategory(categoryDTO);
+        Category category = CategoryMapper.INSTANCE.categoryDTOToCategory(categoryDTO);
 
         assertThat(category)
                 .withFailMessage("Could not map from CategoryDTO to Category")
@@ -70,7 +68,7 @@ class CategoryMapperTest {
     @Test
     @DisplayName("Test CategoryDTO to Category (null input)")
     void categoryDTOToCategoryWithNullInput() {
-        Category mappedCategory = categoryMapper.categoryDTOToCategory(null);
+        Category mappedCategory = CategoryMapper.INSTANCE.categoryDTOToCategory(null);
 
         assertThat(mappedCategory)
                 .withFailMessage("Could not map from CategoryDTO to Category")

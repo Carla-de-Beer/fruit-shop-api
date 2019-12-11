@@ -1,7 +1,6 @@
 package com.cadebe.fruitshop_api.service;
 
 import com.cadebe.fruitshop_api.api.v1.dto.CategoryDTO;
-import com.cadebe.fruitshop_api.api.v1.mapper.CategoryMapper;
 import com.cadebe.fruitshop_api.controller.v1.CategoryController;
 import com.cadebe.fruitshop_api.domain.Category;
 import com.cadebe.fruitshop_api.repository.CategoryRepository;
@@ -38,13 +37,11 @@ class CategoryServiceImplTest {
     @Mock
     private CategoryRepository categoryRepository;
 
-    private final CategoryMapper categoryMapper = new CategoryMapper();
-
     private CategoryServiceImpl categoryService;
 
     @BeforeEach
     void setUp() {
-        categoryService = new CategoryServiceImpl(categoryRepository, categoryMapper);
+        categoryService = new CategoryServiceImpl(categoryRepository);
 
         cat1 = Category.builder().uuid(ID).name(NAME).build();
         cat2 = Category.builder().uuid(ID).name("cat2").build();

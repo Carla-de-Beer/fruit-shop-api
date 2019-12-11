@@ -2,7 +2,6 @@ package com.cadebe.fruitshop_api.bootstrap;
 
 import com.cadebe.fruitshop_api.api.v1.dto.CategoryDTO;
 import com.cadebe.fruitshop_api.api.v1.dto.VendorDTO;
-import com.cadebe.fruitshop_api.api.v1.mapper.CategoryMapper;
 import com.cadebe.fruitshop_api.service.CategoryService;
 import com.cadebe.fruitshop_api.service.VendorService;
 import lombok.extern.slf4j.Slf4j;
@@ -67,7 +66,7 @@ public class Bootstrap implements CommandLineRunner {
 
             categoryService.createNewCategory(exotic);
 
-            log.info("Categories load: " + categoryService.getAllCategories().size());
+            //log.info("Categories load: " + categoryService.getAllCategories().size());
         }
     }
 

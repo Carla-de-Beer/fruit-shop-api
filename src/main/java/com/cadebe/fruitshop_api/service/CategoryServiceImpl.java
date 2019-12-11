@@ -16,18 +16,16 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final CategoryMapper categoryMapper;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository ) {
         this.categoryRepository = categoryRepository;
-        this.categoryMapper = categoryMapper;
     }
 
     @Override
     public List<CategoryDTO> getAllCategories() {
         return categoryRepository.findAll()
                 .stream()
-                .map(categoryMapper::categoryToCategoryDTO).filter(Objects::nonNull)
+                .map(CategoryMapper.INSTANCE::categoryToCategoryDTO).filter(Objects::nonNull)
                 .peek(categoryDTO -> categoryDTO.setCategoryUrl(getCategoryUrl(categoryDTO.getUuid())))
                 .collect(Collectors.toList());
     }
@@ -35,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDTO getCategoryById(UUID uuid) {
         return categoryRepository.findById(uuid)
-                .map(categoryMapper::categoryToCategoryDTO)
+                .map(CategoryMapper.INSTANCE::categoryToCategoryDTO)
                 .map(categoryDTO -> {
                     categoryDTO.setCategoryUrl(getCategoryUrl(uuid));
                     return categoryDTO;
@@ -64,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private CategoryDTO persistAndReturnDTO(CategoryDTO categoryDTO) {
-        return categoryMapper.categoryToCategoryDTO(categoryRepository.save(categoryMapper.categoryDTOToCategory(categoryDTO)));
+        return CategoryMapper.INSTANCE.categoryToCategoryDTO(categoryRepository.save(CategoryMapper.INSTANCE.categoryDTOToCategory(categoryDTO)));
     }
 
     private String getCategoryUrl(UUID uuid) {

@@ -16,18 +16,16 @@ import java.util.stream.Collectors;
 public class VendorServiceImpl implements VendorService {
 
     private final VendorRepository vendorRepository;
-    private final VendorMapper vendorMapper;
 
-    public VendorServiceImpl(VendorRepository vendorRepository, VendorMapper vendorMapper) {
+    public VendorServiceImpl(VendorRepository vendorRepository ) {
         this.vendorRepository = vendorRepository;
-        this.vendorMapper = vendorMapper;
     }
 
     @Override
     public List<VendorDTO> getAllVendors() {
         return vendorRepository.findAll()
                 .stream()
-                .map(vendorMapper::vendorToVendorDTO).filter(Objects::nonNull)
+                .map(VendorMapper.INSTANCE::vendorToVendorDTO).filter(Objects::nonNull)
                 .peek(categoryDTO -> categoryDTO.setVendorURL(getVendorUrl(categoryDTO.getUuid())))
                 .collect(Collectors.toList());
     }
@@ -35,7 +33,7 @@ public class VendorServiceImpl implements VendorService {
     @Override
     public VendorDTO getVendorById(UUID uuid) {
         return vendorRepository.findById(uuid)
-                .map(vendorMapper::vendorToVendorDTO)
+                .map(VendorMapper.INSTANCE::vendorToVendorDTO)
                 .map(vendorDTO -> {
                     vendorDTO.setVendorURL(getVendorUrl(uuid));
                     return vendorDTO;
@@ -64,7 +62,7 @@ public class VendorServiceImpl implements VendorService {
     }
 
     private VendorDTO persistAndReturnDTO(VendorDTO vendorDTO) {
-        return vendorMapper.vendorToVendorDTO(vendorRepository.save(vendorMapper.vendorDTOToVendor(vendorDTO)));
+        return VendorMapper.INSTANCE.vendorToVendorDTO(vendorRepository.save(VendorMapper.INSTANCE.vendorDTOToVendor(vendorDTO)));
     }
 
     private String getVendorUrl(UUID uuid) {

@@ -1,7 +1,6 @@
 package com.cadebe.fruitshop_api.service;
 
 import com.cadebe.fruitshop_api.api.v1.dto.VendorDTO;
-import com.cadebe.fruitshop_api.api.v1.mapper.VendorMapper;
 import com.cadebe.fruitshop_api.controller.v1.VendorController;
 import com.cadebe.fruitshop_api.domain.Vendor;
 import com.cadebe.fruitshop_api.repository.VendorRepository;
@@ -32,15 +31,13 @@ class VendorServiceImplTest {
     @Mock
     private VendorRepository vendorRepository;
 
-    private final VendorMapper vendorMapper = new VendorMapper();
-
     private VendorServiceImpl vendorService;
 
     private Vendor vendor1;
 
     @BeforeEach
     void setUp() {
-        vendorService = new VendorServiceImpl(vendorRepository, vendorMapper);
+        vendorService = new VendorServiceImpl(vendorRepository);
 
         vendor1 = Vendor.builder()
                 .name(NAME)

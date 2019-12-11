@@ -1,39 +1,20 @@
 package com.cadebe.fruitshop_api.api.v1.mapper;
 
 import com.cadebe.fruitshop_api.api.v1.dto.VendorDTO;
-import com.cadebe.fruitshop_api.controller.v1.VendorController;
 import com.cadebe.fruitshop_api.domain.Vendor;
-import lombok.Synchronized;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
 
-@Component
-public class VendorMapper {
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface VendorMapper {
 
-    @Synchronized
-    @Nullable
-    public VendorDTO vendorToVendorDTO(Vendor source) {
-        if (source == null) {
-            return null;
-        }
+    VendorMapper INSTANCE = Mappers.getMapper(VendorMapper.class);
 
-        return VendorDTO.builder()
-                .uuid(source.getUuid())
-                .name(source.getName())
-                .vendorURL(VendorController.BASE_URL + "/" + source.getUuid())
-                .build();
-    }
+    @Mapping(target = "vendorURL",
+            expression = "java(com.cadebe.fruitshop_api.controller.v1.VendorController.BASE_URL + '/' + source.getUuid())")
+    VendorDTO vendorToVendorDTO(Vendor source);
 
-    @Synchronized
-    @Nullable
-    public Vendor vendorDTOToVendor(VendorDTO source) {
-        if (source == null) {
-            return null;
-        }
-
-        return Vendor.builder()
-                .uuid(source.getUuid())
-                .name(source.getName())
-                .build();
-    }
+    Vendor vendorDTOToVendor(VendorDTO source);
 }

@@ -19,8 +19,6 @@ class VendorMapperTest {
     private final String NAME = "vendor1";
     private final String URL = VendorController.BASE_URL + "/" + ID;
 
-    private final VendorMapper vendorMapper = new VendorMapper();
-
     @Test
     @DisplayName("Test vendor to vendorDTO id")
     void vendorToVendorDTO() {
@@ -29,7 +27,7 @@ class VendorMapperTest {
                 .name(NAME)
                 .build();
 
-        VendorDTO vendorDTO = vendorMapper.vendorToVendorDTO(vendor);
+        VendorDTO vendorDTO = VendorMapper.INSTANCE.vendorToVendorDTO(vendor);
 
         assert vendorDTO != null;
         assertThat(vendorDTO.getUuid()).isEqualTo(vendor.getUuid());
@@ -39,7 +37,7 @@ class VendorMapperTest {
     @Test
     @DisplayName("Test vendor to vendorDTO id (null input)")
     void vendorToVendorDTOWithNullInput() {
-        VendorDTO mappedVendorDTO = vendorMapper.vendorToVendorDTO(null);
+        VendorDTO mappedVendorDTO = VendorMapper.INSTANCE.vendorToVendorDTO(null);
 
         assertThat(mappedVendorDTO).isNull();
     }
@@ -53,7 +51,7 @@ class VendorMapperTest {
                 .vendorURL(URL)
                 .build();
 
-        Vendor vendor = vendorMapper.vendorDTOToVendor(vendorDTO);
+        Vendor vendor = VendorMapper.INSTANCE.vendorDTOToVendor(vendorDTO);
 
         assertThat(vendor).isEqualToComparingFieldByField(vendorDTO);
     }
@@ -61,7 +59,7 @@ class VendorMapperTest {
     @Test
     @DisplayName("Test vendorDTO to vendor id (null input)")
     void vendorDTOToVendorWithNullInput() {
-        Vendor mappedVendor = vendorMapper.vendorDTOToVendor(null);
+        Vendor mappedVendor = VendorMapper.INSTANCE.vendorDTOToVendor(null);
 
         assertThat(mappedVendor).isNull();
     }

@@ -1,39 +1,20 @@
 package com.cadebe.fruitshop_api.api.v1.mapper;
 
 import com.cadebe.fruitshop_api.api.v1.dto.CategoryDTO;
-import com.cadebe.fruitshop_api.controller.v1.CategoryController;
 import com.cadebe.fruitshop_api.domain.Category;
-import lombok.Synchronized;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
 
-@Component
-public class CategoryMapper {
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface CategoryMapper {
 
-    @Synchronized
-    @Nullable
-    public CategoryDTO categoryToCategoryDTO(Category source) {
-        if (source == null) {
-            return null;
-        }
+    CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
-        return CategoryDTO.builder()
-                .uuid(source.getUuid())
-                .name(source.getName())
-                .categoryUrl(CategoryController.BASE_URL + '/' + source.getUuid())
-                .build();
-    }
+    @Mapping(target = "categoryUrl",
+            expression = "java(com.cadebe.fruitshop_api.controller.v1.CategoryController.BASE_URL + '/' + source.getUuid())")
+    CategoryDTO categoryToCategoryDTO(Category source);
 
-    @Synchronized
-    @Nullable
-    public Category categoryDTOToCategory(CategoryDTO source) {
-        if (source == null) {
-            return null;
-        }
-
-        return Category.builder()
-                .uuid(source.getUuid())
-                .name(source.getName())
-                .build();
-    }
+    Category categoryDTOToCategory(CategoryDTO source);
 }

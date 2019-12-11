@@ -1,7 +1,6 @@
 package com.cadebe.fruitshop_api.service;
 
 import com.cadebe.fruitshop_api.api.v1.dto.CategoryDTO;
-import com.cadebe.fruitshop_api.api.v1.mapper.CategoryMapper;
 import com.cadebe.fruitshop_api.bootstrap.Bootstrap;
 import com.cadebe.fruitshop_api.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.*;
