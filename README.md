@@ -7,7 +7,7 @@ The project allows for connection to either an H2 database (default), or a MySQL
 
 To generate the MySQL database, tables and users, follow the SQL queries inside the file `src/main/scripts/configure-mysql.sql`. For the H2 database, initial data is read in via the `Bootstrap` class.
 
-Unit tests are written with JUnit 5 and continuous integration testing is done through [CircleCi 2.0](https://circleci.com/docs/2.0/).
+Unit tests are written with JUnit 5 and continuous integration testing is done through [CircleCi 2.0](https://circleci.com/docs/2.0/). JacCoCo is used to provide test coverage information for the unit tests.
 
 ## Requirements
 
@@ -35,6 +35,7 @@ Unit tests are written with JUnit 5 and continuous integration testing is done t
     * ```curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"name": "test"}' 'http://localhost:8080/api/v1/categories/'```
     * ```curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"name": "test"}' ''http://localhost:8080/api/v1/vendors/'```
 
+*  Check code coverage with the command `mvn test jacoco:report`.
 ## API Documentation
 
 API documentation is provided by means of Swagger2, which can be opened in the browser with the following urls:
