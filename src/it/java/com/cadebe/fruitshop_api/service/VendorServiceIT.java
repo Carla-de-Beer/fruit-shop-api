@@ -1,8 +1,8 @@
-package com.cadebe.fruitshop_api.service;
+package dev.cadebe.fruitshop_api.service;
 
-import com.cadebe.fruitshop_api.api.v1.dto.VendorDTO;
-import com.cadebe.fruitshop_api.bootstrap.Bootstrap;
-import com.cadebe.fruitshop_api.exception.ResourceNotFoundException;
+import dev.cadebe.fruitshop_api.api.v1.dto.VendorDTO;
+import dev.cadebe.fruitshop_api.bootstrap.Bootstrap;
+import dev.cadebe.fruitshop_api.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
