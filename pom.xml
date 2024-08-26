@@ -30,7 +30,7 @@
         <woodstox.core.asl.version>4.4.1</woodstox.core.asl.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
-        <springfox-swagger.version>2.9.2</springfox-swagger.version>
+        <springfox-swagger.version>2.10.0</springfox-swagger.version>
     </properties>
 
     <dependencies>
